@@ -30,10 +30,13 @@ class _ScreenOneState extends State<ScreenOne> {
               color: Colors.grey,
             ),
             child: Center(
-                child: Text(
-              Dummydb().questions[0]["Question"],
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-            )),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                                Dummydb().questions[0]["Question"],
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                              ),
+                )),
           ),
         ),
         SizedBox(
@@ -53,7 +56,7 @@ class _ScreenOneState extends State<ScreenOne> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Berlin",
+              Dummydb().questions[0]["Options"][index],
                     style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
                   ),
                   Icon(Icons.circle_outlined,color: Colors.white,),
