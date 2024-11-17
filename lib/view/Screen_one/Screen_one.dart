@@ -11,10 +11,8 @@ class ScreenOne extends StatefulWidget {
 
 class _ScreenOneState extends State<ScreenOne> {
 int currentQuestionIndex = 0;  
-int? Answerindex;
 int? selectedAnswerIndex;
-int? correctAnswerIndex;
-bool answered = false;
+int score=0;
 @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,20 +50,22 @@ bool answered = false;
           padding: const EdgeInsets.only(bottom: 10),
           child: InkWell(
             onTap: () {
-              if(answered)return;
-              Answerindex=index;
-              correctAnswerIndex = Dummydb().questions[currentQuestionIndex]["Answerindex"];
-              answered = true;
+              if(selectedAnswerIndex==null){
+                selectedAnswerIndex=index;
+                if(selectedAnswerIndex==Dummydb().questions[currentQuestionIndex]["Answerindex"]){
+                  score++;
+                }
               setState(() {
-                
               });
+              }
+              
             },
             child: Container(
               height: 50,
               width: double.infinity,
               decoration: BoxDecoration(
                   border: Border.all(
-                    color:Answerindex==index?(correctAnswerIndex== index ?Colors.greenAccent:Colors.red):(correctAnswerIndex == index ? Colors.greenAccent : Colors.black), width: 2),
+                    color:getcolor(index), width: 2),
                   borderRadius: BorderRadius.circular(10)),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -83,27 +83,27 @@ bool answered = false;
             ),
           ),
         ),),),
+        if(selectedAnswerIndex!=null)
         InkWell(
           onTap: () {
-            
-            setState(() {
+            if(selectedAnswerIndex!=null){            
+             setState(() {
               if(currentQuestionIndex<Dummydb().questions.length-1){              
                 currentQuestionIndex++;
-                Answerindex=null;
-                correctAnswerIndex=null;
-                answered=false;
+                selectedAnswerIndex=null;
               }else{
-                Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => LastScreen(),));}
+                Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => LastScreen(score: score,),));}
             });
+                
+            }
           },
           child: Container(
             height: 30,
-            width: 60,
             decoration: BoxDecoration(
               color: Colors.blue,
               borderRadius: BorderRadius.circular(5)
             ),
-            child: Center(child: Text("NEXT",style: TextStyle(color: Colors.white),)),
+            child: Center(child: Text(currentQuestionIndex==12?"Get Score":"Next",style: TextStyle(color: Colors.white),)),
           ),
         )
       ],
@@ -111,4 +111,21 @@ bool answered = false;
             ),
     );
   }
+  Color getcolor(int clickindex){
+    if(selectedAnswerIndex !=null){
+      if(Dummydb().questions[currentQuestionIndex]["Answerindex"]==clickindex){
+         return Colors.green;
+      }
+    }
+    if(selectedAnswerIndex==clickindex){
+      if(selectedAnswerIndex == Dummydb().questions[currentQuestionIndex]["Answerindex"]){
+        return Colors.green;
+      }
+      else{
+        return Colors.red;
+      }
+    }else{
+      return Colors.grey;
+    }
+    }
 }
