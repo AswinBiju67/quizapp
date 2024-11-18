@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quizapp/view/dummydb.dart';
 import 'package:quizapp/view/last_screen/last_screen.dart';
 
@@ -35,11 +36,21 @@ int score=0;
             child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                                Dummydb().questions[currentQuestionIndex]["Question"],
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                                textAlign: TextAlign.center,
-                              ),
+                  child: Stack(
+                    children: [
+                      Center(
+                        child: Text(
+                                    Dummydb().questions[currentQuestionIndex]["Question"],
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                                    textAlign: TextAlign.center,
+                                  ),
+                      ),
+                     
+                    if(selectedAnswerIndex==Dummydb().questions[currentQuestionIndex]["Answerindex"])
+                    Lottie.asset('assets/animation/Animation_popper.json'),
+
+                    ],
+                  ),
                 )),
           ),
         ),

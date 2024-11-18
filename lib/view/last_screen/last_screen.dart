@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/view/Screen_one/Screen_one.dart';
 import 'package:quizapp/view/dummydb.dart';
+import 'package:share_plus/share_plus.dart';
 
 class LastScreen extends StatefulWidget {
   int score;
@@ -38,7 +39,7 @@ class _LastScreenState extends State<LastScreen> {
                       left: 15, right: 15, bottom: index == 1 ? 30 : 0),
                   child: Icon(
                     Icons.star,
-                    color: starcount > 0 ? Colors.yellowAccent : Colors.grey,
+                    color: starcount > index ? Colors.yellowAccent : Colors.grey,
                     size: index == 1 ? 70 : 40,
                   ),
                 ),
@@ -48,7 +49,7 @@ class _LastScreenState extends State<LastScreen> {
               height: 10,
             ),
             Text(
-              "Congratulations",
+              starcount>=2?"Congratulations":"Try Agin",
               style: TextStyle(
                   color: Colors.yellow,
                   fontSize: 25,
@@ -74,36 +75,54 @@ class _LastScreenState extends State<LastScreen> {
             SizedBox(
               height: 40,
             ),
-            InkWell(
-              onTap: () {
-                Navigator.pushReplacement(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                     Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ScreenOne(),
                     ));
-              },
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.restart_alt),
-                    SizedBox(
-                      width: 5,
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    Text(
-                      "Retry",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.restart_alt),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "Retry",
+                          style:
+                              TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                SizedBox(width: 10,),
+                InkWell(
+                  onTap: () {
+                    Share.share('check out my website https://example.com');
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                    color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                  ),child: Icon(Icons.share_outlined),),
+                )
+              ],
             )
           ],
         )),
@@ -114,11 +133,11 @@ class _LastScreenState extends State<LastScreen> {
   calculateper() {
     num percentage = (widget.score / Dummydb().questions.length) * 100;
     if (percentage >= 90) {
-      starcount = 1;
+      starcount = 3;
     } else if (percentage >= 50) {
       starcount = 2;
     } else if (percentage >= 30) {
-      starcount = 3;
+      starcount = 1;
     }
     setState(() {});
   }
