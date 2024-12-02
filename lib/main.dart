@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quizapp/view/Screen_one/Screen_one.dart';
+import 'package:quizapp/view/topic_screen/topic_screen.dart';
+
 
 void main(){
   runApp(MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ScreenOne() ,
+      home: TpoicScreen() ,
     );
   }
 }

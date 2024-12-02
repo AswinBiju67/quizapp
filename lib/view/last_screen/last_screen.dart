@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:quizapp/view/Screen_one/Screen_one.dart';
 import 'package:quizapp/view/dummydb.dart';
+import 'package:quizapp/view/topic_screen/topic_screen.dart';
 import 'package:share_plus/share_plus.dart';
 
 class LastScreen extends StatefulWidget {
   int score;
-  LastScreen({super.key, required this.score});
+  dynamic quiz;
+  LastScreen({super.key, required this.score,this.quiz
+  });
 
   @override
   State<LastScreen> createState() => _LastScreenState();
@@ -80,11 +82,7 @@ class _LastScreenState extends State<LastScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                     Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ScreenOne(),
-                    ));
+                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => TpoicScreen(),), (route) => false,);
                   },
                   child: Container(
                     height: 50,
@@ -131,7 +129,7 @@ class _LastScreenState extends State<LastScreen> {
   }
 
   calculateper() {
-    num percentage = (widget.score / Dummydb().questions.length) * 100;
+    num percentage = (widget.score / widget.quiz.length) * 100;
     if (percentage >= 90) {
       starcount = 3;
     } else if (percentage >= 50) {
