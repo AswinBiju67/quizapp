@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quizapp/view/dummydb.dart';
+import 'package:quizapp/view/screen_0ne/screen_0ne.dart';
 import 'package:quizapp/view/topic_screen/topic_screen.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -82,7 +84,24 @@ class _LastScreenState extends State<LastScreen> {
               children: [
                 InkWell(
                   onTap: () {
-                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => TpoicScreen(),), (route) => false,);
+                     showModalBottomSheet(context: context, builder: (context) => Container(
+                      width: double.infinity,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.horizontal(left: Radius.circular(15),right: Radius.circular(15))
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         children: [
+                        ElevatedButton(onPressed: () {
+                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => TpoicScreen(),), (route) => false,);
+                        }, child: Text("Select Topic",style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize: 20),)),
+                         ElevatedButton(onPressed: () {
+                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => ScreenOne(topic: widget.quiz),), (route) => false,);
+                        }, child: Text("Retry Topic",style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize: 20),)),
+                      ],),
+                    ),);
                   },
                   child: Container(
                     height: 50,
